@@ -1,7 +1,7 @@
 # mitmweb docker image
 Docker image for the mitmproxy web interface mitmweb.
 
-Get started by using all the mitmweb defaults and allowing docker to map the proxy and web interface ports.
+Get started quickly with defaults allowing docker to map the proxy and web interface ports.
 
     docker run --name mitmweb -d -P johnmccabe/mitmweb
 
