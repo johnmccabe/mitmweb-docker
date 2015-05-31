@@ -1,4 +1,4 @@
-FROM python:2.7.8
+FROM fedora:22
 MAINTAINER John McCabe <john@johnmccabe.net>
 
 # Expose ports
@@ -7,15 +7,26 @@ MAINTAINER John McCabe <john@johnmccabe.net>
 EXPOSE 8080
 EXPOSE 8081
 
-# Install mitmproxy and netlib from master
-RUN git clone https://github.com/mitmproxy/netlib.git \
-    && git --git-dir=netlib/.git --work-tree=netlib/.git checkout tags/v0.12 \
-    && pip install -e netlib \
-    && git clone https://github.com/mitmproxy/mitmproxy.git \
-    && git --git-dir=mitmproxy/.git --work-tree=mitmproxy/.git checkout tags/v0.12 \
-    && pip install -e mitmproxy
+# Install build dependencies
+RUN dnf -y update && \
+    dnf -y install \
+        libffi-devel \
+        libxml2-devel \
+        libxslt-devel \
+        zlib-devel \
+        libjpeg-devel \
+        libwebp-devel \
+        openssl-devel \
+        python-devel \
+        python-pip \
+        gcc \
+        git && dnf clean all
+
+# Install mitmproxy and netlib
+ADD ./requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
 
 # Location of the default mitmproxy CA files
 VOLUME ["/ca"]
 
-ENTRYPOINT [ "mitmproxy/mitmweb", "--cadir", "/ca" ]
+ENTRYPOINT [ "/usr/bin/mitmweb", "--cadir", "/ca" ]
