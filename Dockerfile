@@ -1,4 +1,4 @@
-FROM fedora:22
+FROM alpine
 MAINTAINER John McCabe <john@johnmccabe.net>
 
 # Expose ports
@@ -7,24 +7,23 @@ MAINTAINER John McCabe <john@johnmccabe.net>
 EXPOSE 8080
 EXPOSE 8081
 
-# Install build dependencies
-RUN dnf -y update && \
-    dnf -y install \
-        libffi-devel \
-        libxml2-devel \
-        libxslt-devel \
-        zlib-devel \
-        libjpeg-devel \
-        libwebp-devel \
-        openssl-devel \
-        python-devel \
-        python-pip \
-        gcc \
-        git && dnf clean all
-
-# Install mitmproxy and netlib
 ADD ./requirements.txt /tmp/requirements.txt
-RUN pip install -r /tmp/requirements.txt
+
+RUN apk add --update \
+    python \
+    python-dev \
+    py-pip \
+    build-base \
+    git \
+    libffi-dev \
+    libxml2-dev \
+    libxslt-dev \
+    libjpeg-turbo-dev \
+    libwebp-dev \
+    openssl-dev \
+    && ln -s /lib /lib64 \
+    && pip install -r /tmp/requirements.txt \
+    && rm -rf /var/cache/apk/*
 
 # Location of the default mitmproxy CA files
 VOLUME ["/ca"]

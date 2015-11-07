@@ -1,5 +1,5 @@
 # mitmweb docker image
-Docker image for the mitmproxy web interface mitmweb.
+Apline based docker image for the mitmproxy web interface mitmweb.
 
 Get started quickly with defaults allowing docker to map the proxy and web interface ports.
 
