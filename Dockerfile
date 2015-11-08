@@ -23,7 +23,8 @@ RUN apk add --update \
     openssl-dev \
     && ln -s /lib /lib64 \
     && pip install -r /tmp/requirements.txt \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/cache/apk/* \
+    && rm -rf ~/.cache/pip /tmp/pip_build_root
 
 # Location of the default mitmproxy CA files
 VOLUME ["/ca"]
