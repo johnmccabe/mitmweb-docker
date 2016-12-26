@@ -1,4 +1,4 @@
-[![](https://badge.imagelayers.io/johnmccabe/mitmweb:latest.svg)](https://imagelayers.io/?images=johnmccabe/mitmweb:latest 'Get your own badge on imagelayers.io')
+[![](https://images.microbadger.com/badges/image/johnmccabe/mitmweb.svg)](https://microbadger.com/images/johnmccabe/mitmweb "Get your own image badge on microbadger.com")
 # mitmweb docker image
 Alpine based docker image for the mitmproxy web interface mitmweb.
 
